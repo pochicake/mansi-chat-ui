@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 class ChatMessage extends ChangeNotifier {
   final String role;
-  ChatMessage({this.role = "user"});
+  String content;
 
-  String _content = "";
-  String get content => _content;
+  ChatMessage({this.role = "user", this.content = ""});
 
   bool _isTyping = true;
   bool get isTyping => _isTyping;
@@ -13,12 +12,17 @@ class ChatMessage extends ChangeNotifier {
   bool isSent = false;
 
   updateContent(String msgContent) {
-    _content = msgContent;
+    content = msgContent;
+    notifyListeners();
+  }
+
+  addContentChunk(String chunk) {
+    content += chunk;
     notifyListeners();
   }
 
   addToken(String token) {
-    _content += token;
+    content += token;
     notifyListeners();
   }
 

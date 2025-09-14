@@ -1,5 +1,7 @@
 // Custom basic logging class with history
 
+import 'package:flutter/material.dart';
+
 class Logger {
   static String _history = "";
   static String get history => _history;
@@ -7,6 +9,7 @@ class Logger {
 
   static void write(String message) {
     final String msg = message;
+    debugPrint(msg.trim());
     _history += msg;
     for (var callback in _callbacks) {
       callback(msg);
@@ -15,6 +18,7 @@ class Logger {
 
   static void writeLine(String message) {
     final String msg = "$message\n";
+    debugPrint(msg.trim());
     _history += msg;
     for (var callback in _callbacks) {
       callback(msg);
