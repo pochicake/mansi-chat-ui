@@ -33,7 +33,8 @@ class ChatSessionProvider extends ChangeNotifier {
   String? topicTitle;
 
   /// The name of the model provided by the service
-  String modelName = "mistral";
+  // String modelName = "mistral";
+  String modelName = "gemini";
 
   /// The name of the provider
   AIProvider provider = PollinationsAI();
@@ -50,6 +51,7 @@ class ChatSessionProvider extends ChangeNotifier {
   bool get finishedResponding => _finishedResponding;
 
   void addMessage(ChatMessage msg) {
+    msg.setLoadingStatus(false);
     _msgs.add(msg);
 
     // inference
@@ -61,16 +63,22 @@ class ChatSessionProvider extends ChangeNotifier {
       content: "",
     );
 
+    _msgs.add(assistantResponse);
+
     provider.inference(
       model: modelName,
       // model:"mistral",
       messages: _msgs,
       systemPrompt: systemPrompt,
       callback: (token) {
-        if (!_msgs.contains(assistantResponse)) {
-          // messages.add(assistantResponse);
-          _msgs.add(assistantResponse);
-          return;
+        // if (!_msgs.contains(assistantResponse)) {
+        //   _msgs.add(assistantResponse);
+        //   return;
+        // }
+
+        if (assistantResponse.isLoading && assistantResponse.content.isNotEmpty) {
+          // Hide loading UI now
+          assistantResponse.setLoadingStatus(false);
         }
 
         assistantResponse.addContentChunk(token);

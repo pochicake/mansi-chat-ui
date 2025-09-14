@@ -6,10 +6,15 @@ class ChatMessage extends ChangeNotifier {
 
   ChatMessage({this.role = "user", this.content = ""});
 
-  bool _isTyping = true;
-  bool get isTyping => _isTyping;
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
 
   bool isSent = false;
+
+  setLoadingStatus(bool status) {
+    _isLoading = false;
+    notifyListeners();
+  }
 
   updateContent(String msgContent) {
     content = msgContent;
