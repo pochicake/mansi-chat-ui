@@ -77,7 +77,7 @@ class ChatSessionOptions extends StatelessWidget {
         // conversation options: save, delete
         SimpleButton(
           color: Colors.grey,
-          text: "Save conversation",
+          text: "Export conversation",
           icon: Icons.download,
         ),
         
