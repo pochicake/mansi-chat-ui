@@ -56,7 +56,7 @@ class ChatSessionProvider extends ChangeNotifier {
     msg.setLoadingStatus(false);
     _msgs.add(msg);
 
-    // inference
+    // notify listeners _finishedResponding
     _finishedResponding = false;
     notifyListeners();
       
@@ -67,6 +67,7 @@ class ChatSessionProvider extends ChangeNotifier {
 
     _msgs.add(assistantResponse);
 
+    // inference
     provider.inference(
       model: modelName,
       // model:"mistral",
@@ -86,6 +87,10 @@ class ChatSessionProvider extends ChangeNotifier {
         notifyListeners();
       },
       onDone: () {
+        // notify listeners _finishedResponding
+        _finishedResponding = true;
+        notifyListeners();
+
         // summarize title
 
         if (topicTitle == null && _msgs.length <= 2) {
