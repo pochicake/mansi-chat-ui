@@ -75,7 +75,6 @@ class ChatSessionProvider extends ChangeNotifier {
         //   _msgs.add(assistantResponse);
         //   return;
         // }
-
         if (assistantResponse.isLoading && assistantResponse.content.isNotEmpty) {
           // Hide loading UI now
           assistantResponse.setLoadingStatus(false);
@@ -90,7 +89,7 @@ class ChatSessionProvider extends ChangeNotifier {
         if (topicTitle == null && _msgs.length <= 2) {
           Logger.writeLine("Generating topic title...");
           var prompt = """Summarize the following conversation into a concise topic title.
-          Only respond in strict JSON format like this: {'title': ''}.
+          Without Markdown, Respond only in strict raw JSON format like this: {'title': ''}.
 
           Conversation:\n""";
 
