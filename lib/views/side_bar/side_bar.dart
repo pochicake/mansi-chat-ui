@@ -23,6 +23,7 @@ class SideBar extends StatelessWidget {
               
               Logger.writeLine("[New Conversation]: Setting new session to active...");
               context.read<AppProvider>().setActiveChatSession(context.read<AppProvider>().chats.indexOf(ses));
+              Scaffold.of(context).closeDrawer();
             },
           ),
 
@@ -37,6 +38,11 @@ class SideBar extends StatelessWidget {
                 children: List.generate(context.watch<AppProvider>().chats.length, (i) => SideBarItem(
                   text: context.watch<AppProvider>().chats[i].topicTitle ?? "",
                   isActive: context.watch<AppProvider>().activeChatSession == context.watch<AppProvider>().chats[i],
+                  onTap: () {
+                    Logger.writeLine("Setting to selected chat session...");
+                    context.read<AppProvider>().setActiveChatSession(i);
+                    Scaffold.of(context).closeDrawer();
+                  },
                 )),
               ),
             ),
@@ -45,7 +51,6 @@ class SideBar extends StatelessWidget {
           // basic settings
           const SectionTitle("Settings"),
           
-          // TODO: Active = Colors.amber (no borders)
           Column(
             children: [
               SideBarItem(
