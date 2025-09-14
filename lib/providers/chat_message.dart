@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mansi/classes/error_data.dart';
 
 class ChatMessage extends ChangeNotifier {
   final String role;
@@ -10,6 +11,8 @@ class ChatMessage extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   bool isSent = false;
+
+  ErrorData? error;
 
   setLoadingStatus(bool status) {
     _isLoading = false;
@@ -33,6 +36,11 @@ class ChatMessage extends ChangeNotifier {
 
   resend() {
     isSent = true;
+    notifyListeners();
+  }
+
+  setError(ErrorData errorData) {
+    error = errorData;
     notifyListeners();
   }
 }

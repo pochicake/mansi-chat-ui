@@ -18,6 +18,48 @@ class ChatMessageUI extends StatelessWidget {
       value: context.watch<AppProvider>().activeChatSession,
       child: Consumer<ChatSessionProvider?>(
         builder: (context, value, child) {
+          if (data.error != null) {
+            return Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.red.shade100,
+                border: Border.all(
+                  color: Colors.red.shade300,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                spacing: 8,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.error?.title ?? "Error",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          color: const Color.fromARGB(255, 122, 16, 16),
+                        ),
+                      ),
+                      Text(
+                        data.error?.message ?? "There was an error",
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 122, 16, 16),
+                        )
+                      ),
+                    ],
+                  ),
+
+                  Icon(
+                    Icons.refresh,
+                    color: const Color.fromARGB(255, 122, 16, 16),
+                  )
+                ],
+              ),
+            );
+          }
+
           if (data.isLoading) {
             return Row(
               spacing: 8,

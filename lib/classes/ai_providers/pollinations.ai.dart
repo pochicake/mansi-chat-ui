@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:mansi/classes/ai_providers/ai_provider.dart';
@@ -69,7 +70,14 @@ class PollinationsAI extends AIProvider {
         ..body = body;
 
       Logger.writeLine("Sending server request...");
-      final response = await client.send(request);
+      var response;
+
+      try {
+        response = await client.send(request);
+      } catch (e) {
+        if (onError != null) onError(e);
+        return;
+      }
 
       Logger.writeLine("Waiting for server response...");
 

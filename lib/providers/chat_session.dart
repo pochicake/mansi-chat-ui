@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mansi/classes/ai_providers/ai_provider.dart';
 import 'package:mansi/classes/ai_providers/pollinations.ai.dart';
+import 'package:mansi/classes/error_data.dart';
 import 'package:mansi/classes/logger.dart';
 import 'package:mansi/providers/chat_message.dart';
 import 'package:http/http.dart' as http;
@@ -128,7 +130,14 @@ class ChatSessionProvider extends ChangeNotifier {
             },
           );
         }
-      }
+      },
+      onError: (e) {
+        if (e is SocketException) {
+          assistantResponse.setError(ErrorData("Connection Error", "Cannot connect to server"));
+        }else{
+          throw(e);
+        }
+      },
     );
   }
 
