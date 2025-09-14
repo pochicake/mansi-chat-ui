@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mansi/providers/app_provider.dart';
+import 'package:mansi/providers/chat_session.dart';
 import 'package:mansi/ui/chat_session_options/chat_session_options.dart';
 import 'package:provider/provider.dart';
 
@@ -31,13 +32,18 @@ class _ChatSessionTitleState extends State<ChatSessionTitle> {
               borderRadius: BorderRadius.circular(10),
               color: _hovered ? Colors.amber.withValues(alpha: 0.3) : Colors.amber.withValues(alpha: 0),
             ),
-            child: Text(
-              context.watch<AppProvider>().activeChatSession?.topicTitle ?? "New conversation",
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.grey.shade600,
-              )
+            child: ChangeNotifierProvider.value(
+              value: context.watch<AppProvider>().activeChatSession,
+              child: Consumer<ChatSessionProvider>(
+                builder:(context, value, child) => Text(
+                  context.watch<AppProvider>().activeChatSession?.topicTitle ?? "New conversation",
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                  )
+                ),
+              ),
             ),
           ),
         ),

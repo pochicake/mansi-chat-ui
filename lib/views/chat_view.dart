@@ -23,6 +23,12 @@ class _ChatViewState extends State<ChatView> {
     // initialize settings
     // load data
     // load last states
+
+    // WidgetsBinding.instance.addPostFrameCallback((duration) {
+    //   context.read<AppProvider>().newChatSession();
+    // });
+
+    context.read<AppProvider>().newChatSession();
   }
 
   @override
@@ -99,7 +105,7 @@ class _ChatViewState extends State<ChatView> {
                       // const Spacer(),
         
                       Visibility(
-                        visible: context.watch<AppProvider>().activeChatSession == null,
+                        visible: context.watch<AppProvider>().activeChatSession?.messages.isEmpty ?? true,
                         child: Column(
                           children: [
                             const GetStartedSection(),
@@ -110,7 +116,7 @@ class _ChatViewState extends State<ChatView> {
                       ),
         
                       // chat content
-                      if (context.watch<AppProvider>().activeChatSession != null) Expanded(
+                      if (context.watch<AppProvider>().activeChatSession?.messages.isNotEmpty ?? false) Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 8,
