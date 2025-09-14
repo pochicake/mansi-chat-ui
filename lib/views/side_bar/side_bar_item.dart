@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 class SideBarItem extends StatefulWidget {
   final String text;
   final bool isActive;
-  const SideBarItem({super.key, required this.text, this.isActive = false});
+  final GestureTapCallback? onTap;
+  const SideBarItem({super.key, required this.text, this.isActive = false, this.onTap});
 
   @override
   State<SideBarItem> createState() => _SideBarItemState();
@@ -22,18 +23,21 @@ class _SideBarItemState extends State<SideBarItem> {
         cursor: SystemMouseCursors.click,
         onEnter: (event) => setState(() => _hovered = true),
         onExit: (event) => setState(() => _hovered = false),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: 8,
-          ),
-          decoration: BoxDecoration(
-            color: widget.isActive ? Colors.amber.shade100 : !_hovered ? Colors.amber.shade100.withValues(alpha: 0) : Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            widget.text,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              vertical: 4,
+              horizontal: 8,
+            ),
+            decoration: BoxDecoration(
+              color: widget.isActive ? Colors.amber.shade100 : !_hovered ? Colors.amber.shade100.withValues(alpha: 0) : Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              widget.text,
+            ),
           ),
         ),
       ),
