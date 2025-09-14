@@ -98,6 +98,8 @@ class PollinationsAI extends AIProvider {
         final chunkObj = jsonDecode(sub);
         final content = chunkObj['choices'][0]['delta']['content'];
 
+        if (content == null) return;
+
         // print(content);
 
         // assistantResponse.addContentChunk(content);
