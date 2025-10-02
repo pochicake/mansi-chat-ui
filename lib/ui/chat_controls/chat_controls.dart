@@ -29,7 +29,8 @@ class _ChatControlsState extends State<ChatControls> {
           return Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.white,
               border: Border.all(
                 color: Colors.grey,
                 width: 1,

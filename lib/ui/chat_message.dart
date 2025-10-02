@@ -110,12 +110,12 @@ class ChatMessageUI extends StatelessWidget {
                   configs: [
                     PConfig(
                       textStyle: TextStyle(
-                        fontSize: 13,
+                        fontSize: 14,
                       ),
                     ),
                     CodeConfig(
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: 14,
                         backgroundColor: Colors.white,
                         fontFamily: "Consolas",
                       ),

@@ -11,11 +11,16 @@ class GetStartedSection extends StatelessWidget {
         Text(
           "Welcome to Mansi Chat UI! 🍋",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 24,
             fontWeight: FontWeight.w600,
           )
         ),
-        Text("What should we start a conversation with?"),
+        Text(
+          "What should we start a conversation with?",
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
 
         Padding(
           padding: const EdgeInsets.symmetric(
@@ -23,8 +28,8 @@ class GetStartedSection extends StatelessWidget {
           ),
           child: Wrap(
             alignment: WrapAlignment.center,
-            spacing: 5,
-            runSpacing: 5,
+            spacing: 10,
+            runSpacing: 10,
             children: [
               ConversationStarterItem(prompt: "Help me write a story about", title: "Creativity"),
               ConversationStarterItem(prompt: "I need help studying about", title: "Creativity"),

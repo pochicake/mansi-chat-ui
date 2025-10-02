@@ -10,55 +10,57 @@ class SideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SideBarItem(
-            text: "New Conversation",
-            onTap: () {
-              Logger.writeLine("[New Conversation]: Creating new session...");
-              final ses = context.read<AppProvider>().newChatSession();
-              
-              Logger.writeLine("[New Conversation]: Setting new session to active...");
-              context.read<AppProvider>().setActiveChatSession(context.read<AppProvider>().chats.indexOf(ses));
-              Scaffold.of(context).closeDrawer();
-            },
-          ),
-
-          const SectionTitle("Favorites"),
-
-          const SectionTitle("Conversations"),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SideBarItem(
+              text: "New Conversation",
+              onTap: () {
+                Logger.writeLine("[New Conversation]: Creating new session...");
+                final ses = context.read<AppProvider>().newChatSession();
+                
+                Logger.writeLine("[New Conversation]: Setting new session to active...");
+                context.read<AppProvider>().setActiveChatSession(context.read<AppProvider>().chats.indexOf(ses));
+                Scaffold.of(context).closeDrawer();
+              },
+            ),
       
-          // chat list
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: List.generate(context.watch<AppProvider>().chats.length, (i) => SideBarItem(
-                  text: context.watch<AppProvider>().chats[i].topicTitle ?? "",
-                  isActive: context.watch<AppProvider>().activeChatSession == context.watch<AppProvider>().chats[i],
-                  onTap: () {
-                    Logger.writeLine("Setting to selected chat session...");
-                    context.read<AppProvider>().setActiveChatSession(i);
-                    Scaffold.of(context).closeDrawer();
-                  },
-                )),
+            const SectionTitle("Favorites"),
+      
+            const SectionTitle("Conversations"),
+        
+            // chat list
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: List.generate(context.watch<AppProvider>().chats.length, (i) => SideBarItem(
+                    text: context.watch<AppProvider>().chats[i].topicTitle ?? "",
+                    isActive: context.watch<AppProvider>().activeChatSession == context.watch<AppProvider>().chats[i],
+                    onTap: () {
+                      Logger.writeLine("Setting to selected chat session...");
+                      context.read<AppProvider>().setActiveChatSession(i);
+                      Scaffold.of(context).closeDrawer();
+                    },
+                  )),
+                ),
               ),
             ),
-          ),
-      
-          // basic settings
-          const SectionTitle("Settings"),
-          
-          Column(
-            children: [
-              SideBarItem(
-                text: ""
-              ),
-            ],
-          )
-        ],
+        
+            // basic settings
+            const SectionTitle("Settings"),
+            
+            Column(
+              children: [
+                SideBarItem(
+                  text: ""
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

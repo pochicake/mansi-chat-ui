@@ -45,7 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.white,
         child: const SideBar(),
       ),
-      body: const ChatView(),
+      body: SafeArea(
+        child: const ChatView(),
+      ),
     );
   }
 }

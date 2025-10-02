@@ -41,6 +41,7 @@ class _ChatSessionTitleState extends State<ChatSessionTitle> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.grey.shade600,
+                    fontSize: 18,
                   )
                 ),
               ),
